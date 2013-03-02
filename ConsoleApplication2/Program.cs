@@ -10,7 +10,7 @@ namespace ConsoleApplication2
 {
     class Program
     {
-        // Returns a string for an SSID.
+        // Returns a string for an SSID...
         static string GetStringForSSID(Wlan.Dot11Ssid ssid)
         {
             return Encoding.ASCII.GetString(ssid.SSID, 0, (int)ssid.SSIDLength);
