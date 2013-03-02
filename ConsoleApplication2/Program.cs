@@ -10,28 +10,36 @@ namespace ConsoleApplication2
 {
     class Program
     {
+        // Returns a string for an SSID.
         static string GetStringForSSID(Wlan.Dot11Ssid ssid)
         {
             return Encoding.ASCII.GetString(ssid.SSID, 0, (int)ssid.SSIDLength);
         }
 
+        // Main function.
         static void Main(string[] args)
         {
             try
             {
                 WlanClient client = new WlanClient();
+                // Output file to write collected AP data.
                 using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt"))
 
                     while (true)
                     {
                         foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
                         {
+                            // Network adapter vendor and model
                             Console.WriteLine(wlanIface.InterfaceDescription);
+                            Console.WriteLine();
                             Wlan.WlanBssEntry[] bssEntries = wlanIface.GetNetworkBssList();
                             foreach (Wlan.WlanBssEntry bssEntry in bssEntries)
                             {
-                                Console.WriteLine(GetStringForSSID(bssEntry.dot11Ssid));
+                                // SSID
+                                Console.Write((GetStringForSSID(bssEntry.dot11Ssid)).PadRight(20));
+                                Console.Write("   ");
                                 //Console.WriteLine(Encoding.ASCII.GetString(bssEntry.dot11Bssid, 0, 6));
+                                // MAC address
                                 byte[] macAddr = bssEntry.dot11Bssid;
                                 var macAddrLen = (uint)macAddr.Length;
                                 var str = new string[(int)macAddrLen];
@@ -40,12 +48,14 @@ namespace ConsoleApplication2
                                     str[i] = macAddr[i].ToString("x2");
                                 }
                                 string mac = string.Join("", str);
-                                Console.WriteLine(mac);
+                                Console.Write(mac.PadRight(20));
+                                Console.Write("   ");
                                 outputfile.WriteLine(mac);
+                                Console.WriteLine(bssEntry.rssi);
                             }
                             Console.WriteLine("Press enter to scan again");
                             Console.ReadLine();
-
+                            Console.Clear();
                         }
                     }
             }
