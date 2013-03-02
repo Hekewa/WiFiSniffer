@@ -22,7 +22,7 @@ namespace ConsoleApplication2
             try
             {
                 WlanClient client = new WlanClient();
-                // Output file to write collected AP data...
+                // Output file to write collected AP data....
                 using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt"))
 
                     while (true)
