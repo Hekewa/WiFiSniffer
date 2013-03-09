@@ -10,7 +10,11 @@ namespace ConsoleApplication2
 {
     class Program
     {
+<<<<<<< HEAD
         // Returns a string for an SSID.
+=======
+        // Returns a string for an SSID...
+>>>>>>> cbe4a83e31c7f5315135687d8b4cfbc4a37fc021
         static string GetStringForSSID(Wlan.Dot11Ssid ssid)
         {
             return Encoding.ASCII.GetString(ssid.SSID, 0, (int)ssid.SSIDLength);
@@ -22,8 +26,13 @@ namespace ConsoleApplication2
             try
             {
                 WlanClient client = new WlanClient();
+<<<<<<< HEAD
                 // Output file to write collected AP data. True means that we append to a existing file.
                 using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt", true))
+=======
+                // Output file to write collected AP data....
+                using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt"))
+>>>>>>> cbe4a83e31c7f5315135687d8b4cfbc4a37fc021
 
                     for (int j = 0; j < 5; j++ )
                     {
@@ -54,10 +63,16 @@ namespace ConsoleApplication2
                                 outputfile.WriteLine(mac);
                                 Console.WriteLine(bssEntry.rssi);
                             }
+<<<<<<< HEAD
                             //Console.WriteLine("Press enter to scan again");
                             //Console.ReadLine();
                             System.Threading.Thread.Sleep(1000);
 
+=======
+                            Console.WriteLine("Press enter to scan again");
+                            Console.ReadLine();
+                            Console.Clear();
+>>>>>>> cbe4a83e31c7f5315135687d8b4cfbc4a37fc021
                         }
                     }
             }
