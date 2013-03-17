@@ -67,6 +67,8 @@ namespace ConsoleApplication2
                             Console.WriteLine("Press enter to scan again");
                             Console.ReadLine();
                             Console.Clear();
+                            //Scan wlans again, becouse default scan is ever 60s
+                            wlanIface.Scan();
                         }
                     }
             }
