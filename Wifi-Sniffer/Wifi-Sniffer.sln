@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wifi-Sniffer", "Wifi-Sniffer\Wifi-Sniffer.csproj", "{17B61F49-3B70-453D-AD82-0C8A630BF386}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6AA425C9-EA6A-4B01-AAED-5FF122E8B663} = {6AA425C9-EA6A-4B01-AAED-5FF122E8B663}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagedWifi", "Wifi-Sniffer\managedwifi-1.1\ManagedWifi.csproj", "{6AA425C9-EA6A-4B01-AAED-5FF122E8B663}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17B61F49-3B70-453D-AD82-0C8A630BF386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17B61F49-3B70-453D-AD82-0C8A630BF386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17B61F49-3B70-453D-AD82-0C8A630BF386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17B61F49-3B70-453D-AD82-0C8A630BF386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AA425C9-EA6A-4B01-AAED-5FF122E8B663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AA425C9-EA6A-4B01-AAED-5FF122E8B663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AA425C9-EA6A-4B01-AAED-5FF122E8B663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA425C9-EA6A-4B01-AAED-5FF122E8B663}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
