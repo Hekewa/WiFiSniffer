@@ -15,6 +15,11 @@ namespace Wifi_Sniffer
 {
     public partial class Form1 : Form
     {
+
+        //For startProgramm to use
+        WlanClient client = new WlanClient();
+
+
         public Form1()
         {
             InitializeComponent();
@@ -30,7 +35,10 @@ namespace Wifi_Sniffer
             return Encoding.ASCII.GetString(ssid.SSID, 0, (int)ssid.SSIDLength);
         }
 
+
         
+        
+    
         /// <summary> 
         /// Starts the programm by checking wlan-adapter. Done only once in the beginning
         /// </summary> 
@@ -41,19 +49,19 @@ namespace Wifi_Sniffer
 
                 int wirelessIndex = -1;
                 string[,] foundWireless = new string[50, 5];
-
+                
 
                 
-                
-                    WlanClient client = new WlanClient();
-                    //adapterName.Text = "notfound";
+                 
+                   
                 
 
                 // Output file to write collected AP data....
                 using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt"))
 
                     //This mayy broke whole HELL if there are more adapters//////////////////////////////////////
-                    //NativeWifi.WlanClient.WlanInterface wlan = client.WlanInterfaces[0];
+                   //WlanClient.WlanInterface[] wlan = client.WlanInterfaces();
+                    
                     foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
                     {
 
@@ -151,9 +159,10 @@ namespace Wifi_Sniffer
                         
                     }
             }
-            catch
+            catch( SystemException ex)
             {
-                errorTextBox.Text = "Error detected";
+
+                errorTextBox.Text = ex.ToString();
                 //this.Close();
             }
 

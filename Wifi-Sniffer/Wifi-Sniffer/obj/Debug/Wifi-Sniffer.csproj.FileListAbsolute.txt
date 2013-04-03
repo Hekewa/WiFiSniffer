@@ -6,3 +6,4 @@ C:\Users\Sakke\Documents\Visual Studio 2012\Projects\Wifi-Sniffer\Wifi-Sniffer\o
 C:\Users\Sakke\Documents\Visual Studio 2012\Projects\Wifi-Sniffer\Wifi-Sniffer\obj\Debug\Wifi-Sniffer.csproj.GenerateResource.Cache
 C:\Users\Sakke\Documents\Visual Studio 2012\Projects\Wifi-Sniffer\Wifi-Sniffer\obj\Debug\Wifi-Sniffer.exe
 C:\Users\Sakke\Documents\Visual Studio 2012\Projects\Wifi-Sniffer\Wifi-Sniffer\obj\Debug\Wifi-Sniffer.pdb
+C:\Users\Sakke\Documents\Visual Studio 2012\Projects\Wifi-Sniffer\Wifi-Sniffer\obj\Debug\Wifi-Sniffer.csprojResolveAssemblyReference.cache
