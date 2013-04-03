@@ -1,5 +1,4 @@
 C:\Users\Sakke\Documents\Visual Studio 2012\Projects\Wifi-Sniffer\Wifi-Sniffer\managedwifi-1.1\bin\Debug\ManagedWifi.dll
 C:\Users\Sakke\Documents\Visual Studio 2012\Projects\Wifi-Sniffer\Wifi-Sniffer\managedwifi-1.1\bin\Debug\ManagedWifi.pdb
-C:\Users\Sakke\Documents\Visual Studio 2012\Projects\Wifi-Sniffer\Wifi-Sniffer\managedwifi-1.1\obj\Debug\ManagedWifi.csprojResolveAssemblyReference.cache
 C:\Users\Sakke\Documents\Visual Studio 2012\Projects\Wifi-Sniffer\Wifi-Sniffer\managedwifi-1.1\obj\Debug\ManagedWifi.dll
 C:\Users\Sakke\Documents\Visual Studio 2012\Projects\Wifi-Sniffer\Wifi-Sniffer\managedwifi-1.1\obj\Debug\ManagedWifi.pdb

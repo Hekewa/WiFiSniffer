@@ -32,13 +32,14 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.closeButton = new System.Windows.Forms.Button();
-            this.adapterName = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
             this.WlanName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.mac = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RSSi = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.graph = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.adapterName = new System.Windows.Forms.Label();
+            this.errorTextBox = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -51,6 +52,7 @@
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.listView1, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.adapterName, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.errorTextBox, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -82,13 +84,6 @@
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
-            // adapterName
-            // 
-            this.adapterName.Location = new System.Drawing.Point(3, 0);
-            this.adapterName.Name = "adapterName";
-            this.adapterName.Size = new System.Drawing.Size(194, 42);
-            this.adapterName.TabIndex = 4;
-            // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -111,12 +106,6 @@
             this.WlanName.Text = "WlanName";
             this.WlanName.Width = 117;
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // mac
             // 
             this.mac.Text = "mac";
@@ -132,6 +121,27 @@
             this.graph.Text = "Graph";
             this.graph.Width = 171;
             // 
+            // adapterName
+            // 
+            this.adapterName.Location = new System.Drawing.Point(3, 0);
+            this.adapterName.Name = "adapterName";
+            this.adapterName.Size = new System.Drawing.Size(194, 42);
+            this.adapterName.TabIndex = 4;
+            // 
+            // errorTextBox
+            // 
+            this.errorTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.errorTextBox.Location = new System.Drawing.Point(3, 441);
+            this.errorTextBox.Name = "errorTextBox";
+            this.errorTextBox.Size = new System.Drawing.Size(194, 20);
+            this.errorTextBox.TabIndex = 6;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -141,6 +151,7 @@
             this.Name = "Form1";
             this.Text = "WiFi-Sniffer";
             this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -159,6 +170,7 @@
         private System.Windows.Forms.ColumnHeader mac;
         private System.Windows.Forms.ColumnHeader RSSi;
         private System.Windows.Forms.ColumnHeader graph;
+        private System.Windows.Forms.TextBox errorTextBox;
     }
 }
 
