@@ -24,6 +24,7 @@ namespace ConsoleApplication2
         {
             try
             {
+
                 WlanClient client = new WlanClient();
                 // Output file to write collected AP data. True means that we append to a existing file.
                 using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt", true))
@@ -64,9 +65,7 @@ namespace ConsoleApplication2
                             System.Threading.Thread.Sleep(1000);
 
 
-                            Console.WriteLine("Press enter to scan again");
-                            Console.ReadLine();
-                            Console.Clear();
+                            
                             //Scan wlans again, becouse default scan is ever 60s
                             wlanIface.Scan();
                         }

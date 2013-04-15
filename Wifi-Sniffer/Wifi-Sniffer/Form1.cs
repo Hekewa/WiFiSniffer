@@ -36,9 +36,9 @@ namespace Wifi_Sniffer
         }
 
 
-        
-        
-    
+
+
+
         /// <summary> 
         /// Starts the programm by checking wlan-adapter. Done only once in the beginning
         /// </summary> 
@@ -49,19 +49,19 @@ namespace Wifi_Sniffer
 
                 int wirelessIndex = -1;
                 string[,] foundWireless = new string[50, 5];
-                
 
-                
-                 
-                   
-                
+
+
+
+
+
 
                 // Output file to write collected AP data....
-                using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt"))
+                using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt", true))
 
                     //This mayy broke whole HELL if there are more adapters//////////////////////////////////////
-                   //WlanClient.WlanInterface[] wlan = client.WlanInterfaces();
-                    
+                    //WlanClient.WlanInterface[] wlan = client.WlanInterfaces();
+
                     foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
                     {
 
@@ -80,61 +80,47 @@ namespace Wifi_Sniffer
                                 foundWireless[wirelessIndex, i] = " ";
                             }
 
-                            try
-                            {
-                                //Store the name of  the found wlan
-                                string wlanName = (GetStringForSSID(bssEntry.dot11Ssid));
-                                foundWireless[wirelessIndex, 0] = wlanName;
-                            }
-                            catch {
-                                errorTextBox.Text = "Error ïn wlanName";
-                            }
 
-                            try
-                            {
-                                //Console.WriteLine(Encoding.ASCII.GetString(bssEntry.dot11Bssid, 0, 6));
-                                // MAC address
-                                byte[] macAddr = bssEntry.dot11Bssid;
-                                var macAddrLen = (uint)macAddr.Length;
-                                var str = new string[(int)macAddrLen];
-                                for (int i = 0; i < macAddrLen; i++)
-                                {
-                                    str[i] = macAddr[i].ToString("x2");
-                                }
-                                string mac = string.Join("", str);
+                            //Store the name of  the found wlan
+                            string wlanName = (GetStringForSSID(bssEntry.dot11Ssid));
+                            foundWireless[wirelessIndex, 0] = wlanName;
 
-                                foundWireless[wirelessIndex, 1] = mac;
 
-                                //Writeoutput-file
-                                outputfile.WriteLine(mac);
-                            }
-                            catch
+                            //Console.WriteLine(Encoding.ASCII.GetString(bssEntry.dot11Bssid, 0, 6));
+                            // MAC address
+                            byte[] macAddr = bssEntry.dot11Bssid;
+                            var macAddrLen = (uint)macAddr.Length;
+                            var str = new string[(int)macAddrLen];
+                            for (int i = 0; i < macAddrLen; i++)
                             {
-                                errorTextBox.Text = "Error in mac";
+                                str[i] = macAddr[i].ToString("x2");
                             }
+                            string mac = string.Join("", str);
 
-                            try
-                            {
-                                int RSSI = bssEntry.rssi;
-                                foundWireless[wirelessIndex, 2] = RSSI.ToString();
-                            }
-                            catch
-                            {
+                            foundWireless[wirelessIndex, 1] = mac;
 
-                                errorTextBox.Text = "Error in rssi";
-                            }
+                            //Writeoutput-file
+                            outputfile.WriteLine("lol" + mac);
+
+
+
+                            int RSSI = bssEntry.rssi;
+                            foundWireless[wirelessIndex, 2] = RSSI.ToString();
+
+
+
                         }
-                        //Console.WriteLine("Press enter to scan again");
-                        //Console.ReadLine();
-                        //Console.Clear();
 
-                        //Scan
-                        //wlanIface.Scan();
-
+                        for (int i = 0; i < listView1.Items.Count; i++)
+                        {
+                            listView1.Items[i].SubItems[2].Text = "0";
+                        }
 
                         //Go through all found items and add them to the view
                         for (int i = 0; i < wirelessIndex; i++)
                         {
+
+
                             //Try to find old element by mac-address
                             ListViewItem SearchItem = new ListViewItem();
                             SearchItem = listView1.FindItemWithText(foundWireless[i, 1]);
@@ -156,10 +142,10 @@ namespace Wifi_Sniffer
                             }
 
                         }
-                        
+
                     }
             }
-            catch( SystemException ex)
+            catch (SystemException ex)
             {
 
                 errorTextBox.Text = ex.ToString();
@@ -169,7 +155,7 @@ namespace Wifi_Sniffer
 
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////  
-        
+
 
         /// <summary> 
         /// Close the Program
@@ -190,7 +176,7 @@ namespace Wifi_Sniffer
             //1 Go through wlan-adapters data
             //2. Store data to database and infoblocks
             //3. If new wlan found, call createWlanData
-            
+
 
         }
 
@@ -207,40 +193,40 @@ namespace Wifi_Sniffer
         }
 
 
-    /*
-        /// <summary> 
-        /// This creates new data block for new wlan. 
-        /// </summary> 
-        private void createWlanData(string wlanName, string mac, int RSSi)
-        {
+        /*
+            /// <summary> 
+            /// This creates new data block for new wlan. 
+            /// </summary> 
+            private void createWlanData(string wlanName, string mac, int RSSi)
+            {
             
-            //Container
-            FlowLayoutPanel panel = new FlowLayoutPanel();
-            TextBox wlanName1 = new TextBox();
-            TextBox wlanMac1 = new TextBox();
-            TextBox wlanRSSI1 = new TextBox();
+                //Container
+                FlowLayoutPanel panel = new FlowLayoutPanel();
+                TextBox wlanName1 = new TextBox();
+                TextBox wlanMac1 = new TextBox();
+                TextBox wlanRSSI1 = new TextBox();
 
-            panel.Controls.Add(wlanName1);
-            panel.Controls.Add(wlanMac1);
-            panel.Controls.Add(wlanRSSI1);
+                panel.Controls.Add(wlanName1);
+                panel.Controls.Add(wlanMac1);
+                panel.Controls.Add(wlanRSSI1);
 
-            wlanName1.Text = wlanName;
-            wlanMac1.Text = mac;
-            wlanRSSI1.Text = RSSi.ToString();
+                wlanName1.Text = wlanName;
+                wlanMac1.Text = mac;
+                wlanRSSI1.Text = RSSi.ToString();
 
-            panel.Name = mac;
+                panel.Name = mac;
 
-            tableLayoutPanel1.Controls.Add(panel, 2, 1);
+                tableLayoutPanel1.Controls.Add(panel, 2, 1);
             
 
-        }
+            }
 
-        */
-      
-      
-       
+            */
 
-       
+
+
+
+
     }
 }
 
