@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,12 +53,8 @@ namespace Wifi_Sniffer
 
 
 
-
-
-
-
                 // Output file to write collected AP data....
-                using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt", true))
+                //using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt", true))
 
                     //This mayy broke whole HELL if there are more adapters//////////////////////////////////////
                     //WlanClient.WlanInterface[] wlan = client.WlanInterfaces();
@@ -66,6 +63,10 @@ namespace Wifi_Sniffer
                     {
 
                         wlanIface.Scan();
+
+                        // Print date and time of scan.
+                        DateTime dateTime = DateTime.Now;
+                        File.AppendAllText(@"C:\Users\Public\WifiSniffer.txt", Environment.NewLine + dateTime.ToString() + Environment.NewLine);
 
                         adapterName.Text = wlanIface.InterfaceDescription;
                         Wlan.WlanBssEntry[] bssEntries = wlanIface.GetNetworkBssList();
@@ -100,14 +101,15 @@ namespace Wifi_Sniffer
                             foundWireless[wirelessIndex, 1] = mac;
 
                             //Writeoutput-file
-                            outputfile.WriteLine("lol" + mac);
+                            //outputfile.WriteLine("lol" + mac);
 
 
 
                             int RSSI = bssEntry.rssi;
                             foundWireless[wirelessIndex, 2] = RSSI.ToString();
 
-
+                            File.AppendAllText(@"C:\Users\Public\WifiSniffer.txt", mac.PadRight(20) + wlanName.PadRight(20)
+                           + foundWireless[wirelessIndex, 2].PadRight(20) + Environment.NewLine);
 
                         }
 
@@ -190,6 +192,11 @@ namespace Wifi_Sniffer
             //wlanIface.Scan();
             //showWlanData();
             startProgram();
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
 
