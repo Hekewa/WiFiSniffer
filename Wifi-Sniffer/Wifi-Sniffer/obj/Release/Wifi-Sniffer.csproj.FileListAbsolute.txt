@@ -16,3 +16,12 @@ E:\Kurssit ja koulu\TKT-2527 Project Work\Wifi_Sniffer_GIT_repo\WiFiSniffer\Wifi
 E:\Kurssit ja koulu\TKT-2527 Project Work\Wifi_Sniffer_GIT_repo\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi_Sniffer.Form1.resources
 E:\Kurssit ja koulu\TKT-2527 Project Work\Wifi_Sniffer_GIT_repo\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi_Sniffer.Properties.Resources.resources
 E:\Kurssit ja koulu\TKT-2527 Project Work\Wifi_Sniffer_GIT_repo\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi-Sniffer.csproj.GenerateResource.Cache
+D:\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\bin\Release\Wifi-Sniffer.exe.config
+D:\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi-Sniffer.exe
+D:\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi-Sniffer.pdb
+D:\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\bin\Release\Wifi-Sniffer.exe
+D:\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\bin\Release\Wifi-Sniffer.pdb
+D:\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi-Sniffer.csprojResolveAssemblyReference.cache
+D:\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi_Sniffer.Form1.resources
+D:\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi_Sniffer.Properties.Resources.resources
+D:\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi-Sniffer.csproj.GenerateResource.Cache

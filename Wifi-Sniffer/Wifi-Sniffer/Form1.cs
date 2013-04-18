@@ -39,7 +39,6 @@ namespace Wifi_Sniffer
 
 
 
-
         /// <summary> 
         /// Starts the programm by checking wlan-adapter. Done only once in the beginning
         /// </summary> 
@@ -56,96 +55,98 @@ namespace Wifi_Sniffer
                 // Output file to write collected AP data....
                 //using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt", true))
 
-                    //This mayy broke whole HELL if there are more adapters//////////////////////////////////////
-                    //WlanClient.WlanInterface[] wlan = client.WlanInterfaces();
+                //This mayy broke whole HELL if there are more adapters//////////////////////////////////////
+                //WlanClient.WlanInterface[] wlan = client.WlanInterfaces();
 
-                    foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
+                foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
+                {
+
+                    wlanIface.Scan();
+
+                    // Print date and time of scan.
+                    DateTime dateTime = DateTime.Now;
+                    File.AppendAllText(@"C:\Users\Public\WifiSniffer.txt", Environment.NewLine + dateTime.ToString() + Environment.NewLine);
+
+
+
+                    adapterName.Text = wlanIface.InterfaceDescription;
+                    Wlan.WlanBssEntry[] bssEntries = wlanIface.GetNetworkBssList();
+                    foreach (Wlan.WlanBssEntry bssEntry in bssEntries)
+                    {
+                        //Found new 
+                        wirelessIndex++;
+                        //create indekxed listview for i= columns
+                        //Name | mac | RSSi | draw | optional
+                        for (int i = 0; i < 3; i++)
+                        {
+                            foundWireless[wirelessIndex, i] = " ";
+                        }
+
+
+                        //Store the name of  the found wlan
+                        string wlanName = (GetStringForSSID(bssEntry.dot11Ssid));
+                        foundWireless[wirelessIndex, 0] = wlanName;
+
+
+                        //Console.WriteLine(Encoding.ASCII.GetString(bssEntry.dot11Bssid, 0, 6));
+                        // MAC address
+                        byte[] macAddr = bssEntry.dot11Bssid;
+                        var macAddrLen = (uint)macAddr.Length;
+                        var str = new string[(int)macAddrLen];
+                        for (int i = 0; i < macAddrLen; i++)
+                        {
+                            str[i] = macAddr[i].ToString("x2");
+                        }
+                        string mac = string.Join("", str);
+
+                        foundWireless[wirelessIndex, 1] = mac;
+
+                        //Writeoutput-file
+                        //outputfile.WriteLine("lol" + mac);
+
+
+
+                        int RSSI = bssEntry.rssi;
+                        foundWireless[wirelessIndex, 2] = RSSI.ToString();
+
+                        File.AppendAllText(@"C:\Users\Public\WifiSniffer.txt", mac.PadRight(20) + wlanName.PadRight(20)
+                       + foundWireless[wirelessIndex, 2].PadRight(20) + Environment.NewLine);
+
+                    }
+
+                    for (int i = 0; i < listView1.Items.Count; i++)
+                    {
+                        listView1.Items[i].SubItems[2].Text = "0";
+                    }
+
+                    //Go through all found items and add them to the view
+                    for (int i = 0; i < wirelessIndex; i++)
                     {
 
-                        wlanIface.Scan();
 
-                        // Print date and time of scan.
-                        DateTime dateTime = DateTime.Now;
-                        File.AppendAllText(@"C:\Users\Public\WifiSniffer.txt", Environment.NewLine + dateTime.ToString() + Environment.NewLine);
-
-                        adapterName.Text = wlanIface.InterfaceDescription;
-                        Wlan.WlanBssEntry[] bssEntries = wlanIface.GetNetworkBssList();
-                        foreach (Wlan.WlanBssEntry bssEntry in bssEntries)
+                        //Try to find old element by mac-address
+                        ListViewItem SearchItem = new ListViewItem();
+                        SearchItem = listView1.FindItemWithText(foundWireless[i, 1]);
+                        if (SearchItem == null)
                         {
-                            //Found new 
-                            wirelessIndex++;
-                            //create indekxed listview for i= columns
-                            //Name | mac | RSSi | draw | optional
-                            for (int i = 0; i < 3; i++)
-                            {
-                                foundWireless[wirelessIndex, i] = " ";
-                            }
-
-
-                            //Store the name of  the found wlan
-                            string wlanName = (GetStringForSSID(bssEntry.dot11Ssid));
-                            foundWireless[wirelessIndex, 0] = wlanName;
-
-
-                            //Console.WriteLine(Encoding.ASCII.GetString(bssEntry.dot11Bssid, 0, 6));
-                            // MAC address
-                            byte[] macAddr = bssEntry.dot11Bssid;
-                            var macAddrLen = (uint)macAddr.Length;
-                            var str = new string[(int)macAddrLen];
-                            for (int i = 0; i < macAddrLen; i++)
-                            {
-                                str[i] = macAddr[i].ToString("x2");
-                            }
-                            string mac = string.Join("", str);
-
-                            foundWireless[wirelessIndex, 1] = mac;
-
-                            //Writeoutput-file
-                            //outputfile.WriteLine("lol" + mac);
-
-
-
-                            int RSSI = bssEntry.rssi;
-                            foundWireless[wirelessIndex, 2] = RSSI.ToString();
-
-                            File.AppendAllText(@"C:\Users\Public\WifiSniffer.txt", mac.PadRight(20) + wlanName.PadRight(20)
-                           + foundWireless[wirelessIndex, 2].PadRight(20) + Environment.NewLine);
+                            //Add new element
+                            listView1.Items.Add(foundWireless[i, 0]); //Name
+                            listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 1]); //mac
+                            listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 2]); //Rssi
+                            //listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 3]); //Draw
+                            //listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 4]); //optionalinfo
 
                         }
-
-                        for (int i = 0; i < listView1.Items.Count; i++)
+                        else
                         {
-                            listView1.Items[i].SubItems[2].Text = "0";
-                        }
-
-                        //Go through all found items and add them to the view
-                        for (int i = 0; i < wirelessIndex; i++)
-                        {
-
-
-                            //Try to find old element by mac-address
-                            ListViewItem SearchItem = new ListViewItem();
-                            SearchItem = listView1.FindItemWithText(foundWireless[i, 1]);
-                            if (SearchItem == null)
-                            {
-                                //Add new element
-                                listView1.Items.Add(foundWireless[i, 0]); //Name
-                                listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 1]); //mac
-                                listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 2]); //Rssi
-                                //listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 3]); //Draw
-                                //listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 4]); //optionalinfo
-
-                            }
-                            else
-                            {
-                                //old element
-                                listView1.Items[SearchItem.Index].SubItems[0].Text = foundWireless[i, 0]; //name
-                                listView1.Items[SearchItem.Index].SubItems[2].Text = foundWireless[i, 2]; //RSSi
-                            }
-
+                            //old element
+                            listView1.Items[SearchItem.Index].SubItems[0].Text = foundWireless[i, 0]; //name
+                            listView1.Items[SearchItem.Index].SubItems[2].Text = foundWireless[i, 2]; //RSSi
                         }
 
                     }
+
+                }
             }
             catch (SystemException ex)
             {
@@ -191,7 +192,11 @@ namespace Wifi_Sniffer
             //becausedefault scan time is every 60seconds
             //wlanIface.Scan();
             //showWlanData();
+
+
             startProgram();
+
+
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
