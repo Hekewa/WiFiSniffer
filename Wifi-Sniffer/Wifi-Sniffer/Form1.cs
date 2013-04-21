@@ -17,14 +17,14 @@ namespace Wifi_Sniffer
     public partial class Form1 : Form
     {
 
-        //For startProgramm to use
+        //For scanm to use
         WlanClient client = new WlanClient();
 
 
         public Form1()
         {
             InitializeComponent();
-            startProgram();
+            scan();
         }
 
         /// <summary> 
@@ -36,19 +36,21 @@ namespace Wifi_Sniffer
             return Encoding.ASCII.GetString(ssid.SSID, 0, (int)ssid.SSIDLength);
         }
 
-
+        //
+        int wirelessIndex = -1;
+        string[,] foundWireless = new string[50, 5];
 
 
         /// <summary> 
         /// Starts the programm by checking wlan-adapter. Done only once in the beginning
         /// </summary> 
-        private void startProgram()
+        private void scan()
         {
             try
             {
 
-                int wirelessIndex = -1;
-                string[,] foundWireless = new string[50, 5];
+                wirelessIndex = -1;
+               
 
 
 
@@ -145,7 +147,8 @@ namespace Wifi_Sniffer
                         }
 
                     }
-
+                    //Clear the found wireless
+                    Array.Clear(foundWireless, 0, 50);
                 }
             }
             catch (SystemException ex)
@@ -184,19 +187,11 @@ namespace Wifi_Sniffer
         }
 
         /// <summary> 
-        /// Done once in second(controlled by timer). Calls createWlanData
+        /// Done once in second(controlled by timer). Calls scan-function
         /// </summary> 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            //Here we call scan method every second to refresh data
-            //becausedefault scan time is every 60seconds
-            //wlanIface.Scan();
-            //showWlanData();
-
-
-            startProgram();
-
-
+            scan();
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -205,105 +200,5 @@ namespace Wifi_Sniffer
         }
 
 
-        /*
-            /// <summary> 
-            /// This creates new data block for new wlan. 
-            /// </summary> 
-            private void createWlanData(string wlanName, string mac, int RSSi)
-            {
-            
-                //Container
-                FlowLayoutPanel panel = new FlowLayoutPanel();
-                TextBox wlanName1 = new TextBox();
-                TextBox wlanMac1 = new TextBox();
-                TextBox wlanRSSI1 = new TextBox();
-
-                panel.Controls.Add(wlanName1);
-                panel.Controls.Add(wlanMac1);
-                panel.Controls.Add(wlanRSSI1);
-
-                wlanName1.Text = wlanName;
-                wlanMac1.Text = mac;
-                wlanRSSI1.Text = RSSi.ToString();
-
-                panel.Name = mac;
-
-                tableLayoutPanel1.Controls.Add(panel, 2, 1);
-            
-
-            }
-
-            */
-
-
-
-
-
     }
 }
-
-
-
-/*
-           //WlanClient client = new WlanClient();
-               // Output file to write collected AP data....
-
-           //using (System.IO.StreamWriter outputfile = new System.IO.StreamWriter(@"C:\Users\Public\WifiSniffer.txt"))
-              
-            
-                       foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
-                      {
-                           // Network adapter vendor and model
-                           //Console.WriteLine(wlanIface.InterfaceDescription);
-                           //Console.WriteLine();
-                           //textBox1.Text = wlanIface.InterfaceDescription;
-                           label1.Text = wlanIface.InterfaceDescription;
-                           Wlan.WlanBssEntry[] bssEntries = wlanIface.GetNetworkBssList();
-                          foreach (Wlan.WlanBssEntry bssEntry in bssEntries)
-                          {
-                               // SSID
-                               //Console.Write((GetStringForSSID(bssEntry.dot11Ssid)).PadRight(20));
-
-                               //Store the name of  the found wlan
-                               string wlanName = (GetStringForSSID(bssEntry.dot11Ssid));
-                                
-                                
-                               //Console.WriteLine(Encoding.ASCII.GetString(bssEntry.dot11Bssid, 0, 6));
-                               // MAC address
-           //                    byte[] macAddr = bssEntry.dot11Bssid;
-           //                    var macAddrLen = (uint)macAddr.Length;
-           //                    var str = new string[(int)macAddrLen];
-           //                    for (int i = 0; i < macAddrLen; i++)
-           //77                    {
-           //                        str[i] = macAddr[i].ToString("x2");
-           //                    }
-           //                    string mac = string.Join("", str);
-                               //Console.Write(mac.PadRight(20));
-                               //Console.Write("   ");
-         //                      outputfile.WriteLine(mac);
-                               //Console.WriteLine(bssEntry.rssi);
-          //                     int RSSI = bssEntry.rssi;
-                               //
-                               //createWlanData(wlanName, mac, RSSI);
-          //                 }
-                           //Console.WriteLine("Press enter to scan again");
-                           //Console.ReadLine();
-                           //Console.Clear();
-
-                           //Scan
-                           //wlanIface.Scan();
-          //             }
-                  // }
-             
-
-           /*
-           }
-            
-           catch
-           {
-               //Console.WriteLine("Error: Wlan not working properly");
-
-               //Close Programm if wlan-adapter is not found.
-               this.Close();
-           }
-           */
