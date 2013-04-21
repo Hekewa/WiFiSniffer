@@ -35,7 +35,7 @@
             this.WlanName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.mac = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.RSSi = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.graph = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.channel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.adapterName = new System.Windows.Forms.Label();
             this.errorTextBox = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -56,8 +56,8 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(881, 487);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -80,7 +80,7 @@
             this.WlanName,
             this.mac,
             this.RSSi,
-            this.graph});
+            this.channel});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
@@ -108,10 +108,10 @@
             this.RSSi.Text = "RSSi";
             this.RSSi.Width = 76;
             // 
-            // graph
+            // channel
             // 
-            this.graph.Text = "Graph";
-            this.graph.Width = 171;
+            this.channel.Text = "Channel";
+            this.channel.Width = 171;
             // 
             // adapterName
             // 
@@ -123,10 +123,10 @@
             // errorTextBox
             // 
             this.errorTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.errorTextBox.Location = new System.Drawing.Point(3, 392);
+            this.errorTextBox.Location = new System.Drawing.Point(3, 295);
             this.errorTextBox.Multiline = true;
             this.errorTextBox.Name = "errorTextBox";
-            this.errorTextBox.Size = new System.Drawing.Size(194, 92);
+            this.errorTextBox.Size = new System.Drawing.Size(194, 189);
             this.errorTextBox.TabIndex = 6;
             // 
             // timer1
@@ -159,7 +159,7 @@
         private System.Windows.Forms.ColumnHeader WlanName;
         private System.Windows.Forms.ColumnHeader mac;
         private System.Windows.Forms.ColumnHeader RSSi;
-        private System.Windows.Forms.ColumnHeader graph;
+        private System.Windows.Forms.ColumnHeader channel;
         private System.Windows.Forms.TextBox errorTextBox;
     }
 }

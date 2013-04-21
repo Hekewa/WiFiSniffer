@@ -21,6 +21,7 @@ namespace Wifi_Sniffer
         WlanClient client = new WlanClient();
 
 
+
         public Form1()
         {
             InitializeComponent();
@@ -36,11 +37,46 @@ namespace Wifi_Sniffer
             return Encoding.ASCII.GetString(ssid.SSID, 0, (int)ssid.SSIDLength);
         }
 
-        //
+
+        //int[] channelsFR = new int[14] {2412, 2417, 2422, 2427, 2432, 2437, 2442, 2447, 2452, 2457, 2462, 2467, 2472, 2484};
+        /// <summary> 
+        /// This will return channel number as string
+        /// </summary>
+        /// </returns> string
+        static string returnChannelStr(uint frequency)
+        {
+
+            string value = "0";
+            uint[] channelsFR = { 2412000, 2417000, 2422000, 2427000, 2432000, 2437000, 2442000, 2447000, 2452000, 2457000, 2462000, 2467000, 2472000, 2484000 };
+            /*foreach (int i in channelsFR)
+            {
+                if (frequency == channelsFR[i])
+                {
+                    return (i+1).ToString();
+                   // break;
+                }
+            }*/
+            
+            //Input the channel frequenzy
+            for(int i=0; i<channelsFR.Length; i++){
+                if (frequency == channelsFR[i])
+                {
+                    return (i + 1).ToString();
+                    // break;
+                }
+            }
+            return value; 
+        }
+
+
+        //Initialazion of variables
         int wirelessIndex = -1;
         string[,] foundWireless = new string[50, 5];
+        string[,] wirelessOnDisplay = new string[50, 5];
+    
 
 
+       
         /// <summary> 
         /// Starts the programm by checking wlan-adapter. Done only once in the beginning
         /// </summary> 
@@ -50,7 +86,7 @@ namespace Wifi_Sniffer
             {
 
                 wirelessIndex = -1;
-               
+
 
 
 
@@ -78,8 +114,9 @@ namespace Wifi_Sniffer
                         //Found new 
                         wirelessIndex++;
                         //create indekxed listview for i= columns
-                        //Name | mac | RSSi | draw | optional
-                        for (int i = 0; i < 3; i++)
+                        //found bit is not shown in listview as it is used 
+                        //Name | mac | RSSi | channel  | found bit
+                        for (int i = 0; i < 5; i++)
                         {
                             foundWireless[wirelessIndex, i] = " ";
                         }
@@ -103,23 +140,26 @@ namespace Wifi_Sniffer
 
                         foundWireless[wirelessIndex, 1] = mac;
 
-                        //Writeoutput-file
-                        //outputfile.WriteLine("lol" + mac);
-
-
 
                         int RSSI = bssEntry.rssi;
                         foundWireless[wirelessIndex, 2] = RSSI.ToString();
+
+                        uint channel = bssEntry.chCenterFrequency;
+                        foundWireless[wirelessIndex, 3] = returnChannelStr(channel);
 
                         File.AppendAllText(@"C:\Users\Public\WifiSniffer.txt", mac.PadRight(20) + wlanName.PadRight(20)
                        + foundWireless[wirelessIndex, 2].PadRight(20) + Environment.NewLine);
 
                     }
 
+
+                    /*
+                    //Change every wireless RSSi to zero if not found
                     for (int i = 0; i < listView1.Items.Count; i++)
                     {
                         listView1.Items[i].SubItems[2].Text = "0";
                     }
+                    */
 
                     //Go through all found items and add them to the view
                     for (int i = 0; i < wirelessIndex; i++)
@@ -135,7 +175,7 @@ namespace Wifi_Sniffer
                             listView1.Items.Add(foundWireless[i, 0]); //Name
                             listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 1]); //mac
                             listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 2]); //Rssi
-                            //listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 3]); //Draw
+                            listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 3]); //channel
                             //listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 4]); //optionalinfo
 
                         }
