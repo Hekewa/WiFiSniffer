@@ -71,11 +71,25 @@ namespace Wifi_Sniffer
 
         //Initialazion of variables
         int wirelessIndex = -1;
+        //Array where wireless information is stored when found
+        //Name | mac | RSSi | channel  | found bit | how many times not found
         string[,] foundWireless = new string[50, 5];
-        string[,] wirelessOnDisplay = new string[50, 5];
-    
+        //Displayed wireless store also here and to gui
+        // mac | update bit | how many rounds it have not been found
+        //string[,] wirelessOnDisplay = new string[50, 3];
+        //This is rounds after it will be deleted from listview
+        int deleteAfterRounds = 5;
 
+        public class wirelessData
+        {
+            public string mac_;// = " ";
+            public bool updatebit;// = false;
+            public int notFound;// = 0;
+        };
 
+        List<wirelessData> wirelessOnDisplay = new List<wirelessData>();
+        wirelessData instance = new wirelessData();
+        List<int> removeInstances = new List<int>();
        
         /// <summary> 
         /// Starts the programm by checking wlan-adapter. Done only once in the beginning
@@ -86,8 +100,6 @@ namespace Wifi_Sniffer
             {
 
                 wirelessIndex = -1;
-
-
 
 
                 // Output file to write collected AP data....
@@ -136,7 +148,7 @@ namespace Wifi_Sniffer
                         {
                             str[i] = macAddr[i].ToString("x2");
                         }
-                        string mac = string.Join("", str);
+                        string mac = string.Join(":", str);
 
                         foundWireless[wirelessIndex, 1] = mac;
 
@@ -178,15 +190,75 @@ namespace Wifi_Sniffer
                             listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 3]); //channel
                             //listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 4]); //optionalinfo
 
+                            //wirelessData
+                            //wirelessOnDisplay[listView1.Items.Count - 1, 0] = foundWireless[i, 1];
+                            //wirelessOnDisplay[listView1.Items.Count - 1, 1] = "1"; //Updated
+                            //wirelessOnDisplay[listView1.Items.Count - 1, 2] = "0"; //Not Found == 0
+                            
+                            instance.mac_ = foundWireless[i, 1];
+                            instance.updatebit = true;
+                            instance.notFound = 0;
+                            wirelessOnDisplay.Insert(listView1.Items.Count - 1, instance);
+                            
                         }
                         else
                         {
                             //old element
                             listView1.Items[SearchItem.Index].SubItems[0].Text = foundWireless[i, 0]; //name
                             listView1.Items[SearchItem.Index].SubItems[2].Text = foundWireless[i, 2]; //RSSi
+
+                            //Something
+                            //instance = wirelessOnDisplay[SearchItem.Index];
+                            //instance.updatebit = true;
+                            //instance.notFound = 2;
+                            wirelessOnDisplay[SearchItem.Index].updatebit = true; //Updated
+                            wirelessOnDisplay[SearchItem.Index].notFound = 0; //Not Found == 0
+                            //errorTextBox.Text = wirelessOnDisplay[SearchItem.Index].notFound.ToString();
+                            //wirelessOnDisplay[SearchItem.Index].updatebit = true;
+
                         }
 
                     }
+
+                    //Go through wirelessOnDisplay to see which ones are updated and not
+                    for (int i = 0; i < wirelessOnDisplay.Count; i++)
+                    {
+                        //errorTextBox.Text = "Tuhoa1";                       
+                        if (wirelessOnDisplay[i].updatebit == false)
+                        {
+
+                            wirelessOnDisplay[i].notFound += 1;
+
+                            if (wirelessOnDisplay[i].notFound >= deleteAfterRounds)
+                            {
+                                removeInstances.Add(i);
+                                //instance.updatebit = false;
+                                //errorTextBox.Text = "Tuhoa";
+                            }
+                        }                     
+                        else
+                        {
+                            wirelessOnDisplay[i].updatebit = false;
+                            wirelessOnDisplay[i].notFound = 0;
+                            //errorTextBox.Text = wirelessOnDisplay[i].mac_.ToString();
+                        }
+
+                    }
+                    /*
+                    //REmove the instances from Listview1 and wirelessOnDisplay (List)
+                    for (int i = removeInstances.Count-1; i >= 0 ; i--)
+                    {
+                        //removeInstances[i].
+                        wirelessOnDisplay.RemoveAt(removeInstances[i]);
+                        listView1.Items.RemoveAt(i);
+                        errorTextBox.Text = removeInstances[i].ToString();
+                    }*/
+
+
+
+                    
+                    //wirelessOnDisplay.Sort();
+                    removeInstances.Clear();
                     //Clear the found wireless
                     Array.Clear(foundWireless, 0, 50);
                 }
