@@ -78,7 +78,7 @@ namespace Wifi_Sniffer
         // mac | update bit | how many rounds it have not been found
         //string[,] wirelessOnDisplay = new string[50, 3];
         //This is rounds after it will be deleted from listview
-        int deleteAfterRounds = 5;
+        int deleteAfterRounds = 4;
 
         public class wirelessData
         {
@@ -195,11 +195,15 @@ namespace Wifi_Sniffer
                             //wirelessOnDisplay[listView1.Items.Count - 1, 1] = "1"; //Updated
                             //wirelessOnDisplay[listView1.Items.Count - 1, 2] = "0"; //Not Found == 0
                             
-                            instance.mac_ = foundWireless[i, 1];
-                            instance.updatebit = true;
-                            instance.notFound = 0;
-                            wirelessOnDisplay.Insert(listView1.Items.Count - 1, instance);
-                            
+                            //instance.mac_ = foundWireless[i, 1];
+                            //instance.updatebit = true;
+                            //instance.notFound = 0;
+                            //wirelessOnDisplay.Insert(listView1.Items.Count - 1, instance);
+                            wirelessData tmp = new wirelessData();
+                            wirelessOnDisplay.Add(tmp);
+                            wirelessOnDisplay[listView1.Items.Count - 1].updatebit = true;
+                            wirelessOnDisplay[listView1.Items.Count - 1].mac_ = foundWireless[i, 1];
+                            wirelessOnDisplay[listView1.Items.Count - 1].notFound = 0;
                         }
                         else
                         {
@@ -244,20 +248,28 @@ namespace Wifi_Sniffer
                         }
 
                     }
-                    /*
+                    
                     //REmove the instances from Listview1 and wirelessOnDisplay (List)
                     for (int i = removeInstances.Count-1; i >= 0 ; i--)
                     {
                         //removeInstances[i].
                         wirelessOnDisplay.RemoveAt(removeInstances[i]);
-                        listView1.Items.RemoveAt(i);
+                        listView1.Items.RemoveAt(removeInstances[i]);
                         errorTextBox.Text = removeInstances[i].ToString();
+                    }
+                    /*
+                    for (int i = wirelessOnDisplay.Count - 1; i >= 0; i--)
+                    {
+                        //removeInstances[i].
+                        
+                           wirelessOnDisplay.RemoveAt(removeInstances[i]);
+                           listView1.Items.RemoveAt(i);
+                           errorTextBox.Text = removeInstances[i].ToString();
+                        
                     }*/
 
-
-
                     
-                    //wirelessOnDisplay.Sort();
+                    
                     removeInstances.Clear();
                     //Clear the found wireless
                     Array.Clear(foundWireless, 0, 50);
