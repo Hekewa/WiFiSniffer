@@ -68,11 +68,12 @@ namespace Wifi_Sniffer
             return value; 
         }
 
-
+        //ListViewItem.ListViewSubItem indicators = new ListViewItem.ListViewSubItem();
+        
         //Initialazion of variables
         int wirelessIndex = -1;
         //Array where wireless information is stored when found
-        //Name | mac | RSSi | channel  | found bit | how many times not found
+        //Name | mac | RSSi | channel  | RSSiindex for image
         string[,] foundWireless = new string[50, 5];
         //Displayed wireless store also here and to gui
         // mac | update bit | how many rounds it have not been found
@@ -91,6 +92,16 @@ namespace Wifi_Sniffer
         wirelessData instance = new wirelessData();
         List<int> removeInstances = new List<int>();
        
+        //imageListSmall.Images.Add(Bitmap.
+        //RSSi values
+        //lower than -95: red
+        //          -75-(-60) yellow
+        //             -60-0  green
+        //ImageList imageListforIndicator = new ImageList();
+        //imageListforIndicator 
+        //0-green, 2-yellow, 1-red
+        //-45--60, -60--75, -75---
+
         /// <summary> 
         /// Starts the programm by checking wlan-adapter. Done only once in the beginning
         /// </summary> 
@@ -127,7 +138,7 @@ namespace Wifi_Sniffer
                         wirelessIndex++;
                         //create indekxed listview for i= columns
                         //found bit is not shown in listview as it is used 
-                        //Name | mac | RSSi | channel  | found bit
+                        //Name | mac | RSSi | channel  | found bit | RSSI-index
                         for (int i = 0; i < 5; i++)
                         {
                             foundWireless[wirelessIndex, i] = " ";
@@ -152,9 +163,23 @@ namespace Wifi_Sniffer
 
                         foundWireless[wirelessIndex, 1] = mac;
 
-
+                        //RSSI and the index image
+                        //0-green, 2-yellow, 1-red
+                        //-45--60, -60--75, -75---
                         int RSSI = bssEntry.rssi;
                         foundWireless[wirelessIndex, 2] = RSSI.ToString();
+                        if(RSSI >= -60)
+                        {
+                            foundWireless[wirelessIndex, 4] = "0";
+                        }
+                        else if(RSSI >= -75)
+                        {
+                            foundWireless[wirelessIndex, 4] = "2";
+                        }
+                        else
+                        {
+                            foundWireless[wirelessIndex, 4] = "1";
+                        }
 
                         uint channel = bssEntry.chCenterFrequency;
                         foundWireless[wirelessIndex, 3] = returnChannelStr(channel);
@@ -190,10 +215,26 @@ namespace Wifi_Sniffer
                             listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 3]); //channel
                             //listView1.Items[listView1.Items.Count - 1].SubItems.Add(foundWireless[i, 4]); //optionalinfo
 
+                            if (foundWireless[i, 4] == "0")
+                            {
+                                listView1.Items[listView1.Items.Count - 1].ImageIndex = 0;
+                            }
+                            else if (foundWireless[i, 4] == "1")
+                            {
+                                listView1.Items[listView1.Items.Count - 1].ImageIndex = 1;
+                            }
+                            else if (foundWireless[i, 4] == "2")
+                            {
+                                listView1.Items[listView1.Items.Count - 1].ImageIndex = 2;
+                            }
                             //wirelessData
                             //wirelessOnDisplay[listView1.Items.Count - 1, 0] = foundWireless[i, 1];
                             //wirelessOnDisplay[listView1.Items.Count - 1, 1] = "1"; //Updated
                             //wirelessOnDisplay[listView1.Items.Count - 1, 2] = "0"; //Not Found == 0
+
+                            //ListViewItem.ListViewSubItem indicators = new ImageList.ImageCollection();
+
+                            
                             
                             //instance.mac_ = foundWireless[i, 1];
                             //instance.updatebit = true;
@@ -211,6 +252,18 @@ namespace Wifi_Sniffer
                             listView1.Items[SearchItem.Index].SubItems[0].Text = foundWireless[i, 0]; //name
                             listView1.Items[SearchItem.Index].SubItems[2].Text = foundWireless[i, 2]; //RSSi
 
+                            if (foundWireless[i, 4] == "0")
+                            {
+                                listView1.Items[SearchItem.Index].ImageIndex = 0;
+                            }
+                            else if (foundWireless[i, 4] == "1")
+                            {
+                                listView1.Items[SearchItem.Index].ImageIndex = 1;
+                            }
+                            else if (foundWireless[i, 4] == "2")
+                            {
+                                listView1.Items[SearchItem.Index].ImageIndex = 2;
+                            }
                             //Something
                             //instance = wirelessOnDisplay[SearchItem.Index];
                             //instance.updatebit = true;
@@ -255,7 +308,7 @@ namespace Wifi_Sniffer
                         //removeInstances[i].
                         wirelessOnDisplay.RemoveAt(removeInstances[i]);
                         listView1.Items.RemoveAt(removeInstances[i]);
-                        errorTextBox.Text = removeInstances[i].ToString();
+                        //errorTextBox.Text = removeInstances[i].ToString();
                     }
                     /*
                     for (int i = wirelessOnDisplay.Count - 1; i >= 0; i--)
@@ -306,7 +359,7 @@ namespace Wifi_Sniffer
             //1 Go through wlan-adapters data
             //2. Store data to database and infoblocks
             //3. If new wlan found, call createWlanData
-
+           
 
         }
 
@@ -321,6 +374,11 @@ namespace Wifi_Sniffer
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void restart_Click(object sender, EventArgs e)
+        {
+            Application.Restart();
         }
 
 
