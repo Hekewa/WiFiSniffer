@@ -34,3 +34,12 @@ C:\Users\Sakke\Documents\GitHub\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Releas
 C:\Users\Sakke\Documents\GitHub\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi_Sniffer.Form1.resources
 C:\Users\Sakke\Documents\GitHub\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi_Sniffer.Properties.Resources.resources
 C:\Users\Sakke\Documents\GitHub\WiFiSniffer\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi-Sniffer.csproj.GenerateResource.Cache
+D:\WiFiSniffer\Wifi-Sniffer_uus\Wifi-Sniffer\Wifi-Sniffer\bin\Release\Wifi-Sniffer.exe.config
+D:\WiFiSniffer\Wifi-Sniffer_uus\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi-Sniffer.exe
+D:\WiFiSniffer\Wifi-Sniffer_uus\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi-Sniffer.pdb
+D:\WiFiSniffer\Wifi-Sniffer_uus\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi-Sniffer.csprojResolveAssemblyReference.cache
+D:\WiFiSniffer\Wifi-Sniffer_uus\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi_Sniffer.Form1.resources
+D:\WiFiSniffer\Wifi-Sniffer_uus\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi_Sniffer.Properties.Resources.resources
+D:\WiFiSniffer\Wifi-Sniffer_uus\Wifi-Sniffer\Wifi-Sniffer\obj\Release\Wifi-Sniffer.csproj.GenerateResource.Cache
+D:\WiFiSniffer\Wifi-Sniffer_uus\Wifi-Sniffer\Wifi-Sniffer\bin\Release\Wifi-Sniffer.exe
+D:\WiFiSniffer\Wifi-Sniffer_uus\Wifi-Sniffer\Wifi-Sniffer\bin\Release\Wifi-Sniffer.pdb

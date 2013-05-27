@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using MySql.Data.MySqlClient;
 using System.Data;
 using System.Drawing;
 using System.IO;
@@ -109,6 +110,10 @@ namespace Wifi_Sniffer
         {
             try
             {
+                //Create Connection object to connect to the mySQL database on local server (we were using EasyPHP)
+                string ConStr = "server = localhost; user = root; database = sniffer; port = 3306";
+                MySqlConnection conn = new MySqlConnection(ConStr);
+                
 
                 wirelessIndex = -1;
 
@@ -125,8 +130,11 @@ namespace Wifi_Sniffer
                     wlanIface.Scan();
 
                     // Print date and time of scan.
-                    DateTime dateTime = DateTime.Now;
-                    File.AppendAllText(@"C:\Users\Public\WifiSniffer.txt", Environment.NewLine + dateTime.ToString() + Environment.NewLine);
+                    DateTime dateTime = new DateTime(2011, 05, 08, 01, 05, 00);
+                    dateTime = DateTime.Now;
+                    string timeDate = dateTime.Year.ToString() + "-" + dateTime.Month.ToString() + "-" + dateTime.Day.ToString()
+                        +" " + dateTime.TimeOfDay.ToString();
+                    File.AppendAllText(@"C:\Users\Public\WifiSniffer.txt", Environment.NewLine + timeDate + Environment.NewLine);
 
 
 
@@ -186,9 +194,17 @@ namespace Wifi_Sniffer
 
                         File.AppendAllText(@"C:\Users\Public\WifiSniffer.txt", mac.PadRight(20) + wlanName.PadRight(20)
                        + foundWireless[wirelessIndex, 2].PadRight(20) + Environment.NewLine);
+                        
+                        conn.Open();
+                        string sql = "INSERT INTO sniffing (date, mac, ssid, rssi) values ('"
+                            + timeDate + "','" + mac + "','" + wlanName + "'," + foundWireless[wirelessIndex, 2] + ")";
+                        MySqlCommand cmd = new MySqlCommand(sql, conn);
+                        MySqlDataReader rdr = cmd.ExecuteReader();
+                        conn.Close();
 
                     }
 
+                    
 
                     /*
                     //Change every wireless RSSi to zero if not found
@@ -327,6 +343,7 @@ namespace Wifi_Sniffer
                     //Clear the found wireless
                     Array.Clear(foundWireless, 0, 50);
                 }
+                
             }
             catch (SystemException ex)
             {
